@@ -1,0 +1,29 @@
+{
+  "itinerary": [
+    {
+      "name": "Mysore Palace",
+      "description": "A majestic Indo-Saracenic palace showcasing royal heritage.",
+      "weather": "25°C, Sunny",
+      "travelTime": "2 hrs from Bangalore",
+      "vrLink": "https://www.youtube.com/watch?v=Pi8pT6mZQbM",
+      "streetView": "https://www.google.com/maps/embed?pb=!4v1699538888888!6m8!1m7!1sCAoSLEFGMVFpcE1iR1FBZk1qQ1pKTm8zWElqVVpqQmVibVlDZm1VN1RkQkNNcGdu!2m2!1d12.305163!2d76.655208!3f0!4f0!5f0.7820865974627469"
+    },
+    {
+      "name": "Coorg Hills",
+      "description": "Lush green hills and coffee plantations perfect for nature lovers.",
+      "weather": "22°C, Cool Breeze",
+      "travelTime": "4 hrs from Mysore",
+      "vrLink": "https://www.youtube.com/watch?v=fpAjaq36f4E",
+      "streetView": "https://www.google.com/maps/embed?pb=!4v1699538777777!6m8!1m7!1sCAoSLEFGMVFpcE5MQm90QlB6NmlnUWx4MGVka2VwUDFhQ2lZb2YxSVl5NGVrNUtM!2m2!1d12.4208!2d75.7397!3f0!4f0!5f0.7820865974627469",
+      "fallback360": "assets/coorg360.jpg"
+    },
+    {
+      "name": "Hampi Ruins",
+      "description": "A UNESCO heritage site filled with ancient temples and monuments.",
+      "weather": "30°C, Dry",
+      "travelTime": "6 hrs from Bangalore",
+      "vrLink": "https://www.youtube.com/watch?v=fxMBrZyS9TI",
+      "streetView": "https://www.google.com/maps/embed?pb=!4v1699538666666!6m8!1m7!1sCAoSLEFGMVFpcE5hMV8zTVZ4NjZqakgxZ1pHdk9nSmxNTE1pZXp1VjZzc1Z6MmtP!2m2!1d15.335!2d76.46!3f0!4f0!5f0.7820865974627469"
+    }
+  ]
+}

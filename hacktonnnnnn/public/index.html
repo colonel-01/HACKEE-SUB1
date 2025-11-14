@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Realtime Travel Simulator</title>
+  <link rel="stylesheet" href="realtime.css"/>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+</head>
+<body>
+  <div class="panel">
+    <h1>Realtime Karnataka Travel Simulator</h1>
+
+    <div class="controls">
+      <button id="useLocation">Use my location</button>
+      <input id="lat" placeholder="lat" />
+      <input id="lon" placeholder="lon" />
+      <input id="startDate" type="date" />
+      <input id="days" type="number" min="1" max="10" value="3"/>
+      <input id="budget" type="number" value="10000" />
+      <select id="kinds">
+        <option value="">Any</option>
+        <option value="historic">Historic</option>
+        <option value="natural">Natural</option>
+        <option value="cultural">Cultural</option>
+      </select>
+      <button id="go">Generate Real-time Plan</button>
+    </div>
+
+    <div class="summary" id="summary"></div>
+  </div>
+
+  <div id="map" style="height:600px"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="realtime.js"></script>
+</body>
+</html>
