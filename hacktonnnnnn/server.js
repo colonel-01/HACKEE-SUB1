@@ -1,12 +1,17 @@
 // server.js — Clean, robust Overpass-backed realtime trip planner
-require("dotenv").config();
+try {
+  require("dotenv").config();
+} catch (e) {
+  // dotenv is optional
+  console.log("Note: dotenv not found, using default environment variables");
+}
 const express = require("express");
 const path = require("path");
 const axios = require("axios");
 const NodeCache = require("node-cache");
 
 // Config
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT ? parseInt(process.env.PORT) : 4000; // Changed to 4000 to avoid conflict
 const CACHE_TTL = parseInt(process.env.CACHE_TTL_SEC || "3600", 10); // seconds
 const OVERPASS_PRIMARY = "https://overpass-api.de/api/interpreter";
 const OVERPASS_MIRROR = "https://overpass.kumi.systems/api/interpreter"; // fallback mirror
@@ -14,6 +19,17 @@ const OVERPASS_MIRROR = "https://overpass.kumi.systems/api/interpreter"; // fall
 // Setup
 const app = express();
 const cache = new NodeCache({ stdTTL: CACHE_TTL });
+
+// Enable CORS for all routes
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -92,8 +108,9 @@ app.post("/api/plan-trip-realtime", async (req, res) => {
   console.log("Body:", req.body);
 
   try {
-    let { startPlace, lat: latIn, lon: lonIn, days = 3 } = req.body || {};
+    let { startPlace, lat: latIn, lon: lonIn, days = 3, budget = 10000, preferredKinds = '' } = req.body || {};
     days = parseInt(days, 10) || 3;
+    budget = parseInt(budget, 10) || 10000;
 
     // Validate / Geocode if needed
     let lat = latIn !== undefined && latIn !== null && latIn !== "" ? parseFloat(latIn) : NaN;
@@ -373,8 +390,19 @@ out center;`;
 /* ---------- Fallback: simple ping route ---------- */
 app.get("/ping", (req, res) => res.json({ ok: true }));
 
+/* ---------- Error handling middleware ---------- */
+app.use((err, req, res, next) => {
+  console.error('Server Error:', err);
+  res.status(500).json({
+    success: false,
+    message: 'Internal server error',
+    error: err.message || String(err)
+  });
+});
+
 /* ---------- Start Server ---------- */
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Realtime Travel Simulator Server running on http://localhost:${PORT}`);
   console.log(`Cache TTL (sec): ${CACHE_TTL}`);
+  console.log(`API endpoint: http://localhost:${PORT}/api/plan-trip-realtime`);
 });
